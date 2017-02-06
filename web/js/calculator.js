@@ -84,7 +84,8 @@ cap.Calculator = function () {
             result: '.calculator__result'
         },
         errors: {
-            re: 'Неверное значение.'
+            match: 'Неверное значение.',
+            zeroDivision: 'На ноль делить нельзя.'
         }
     };
 
@@ -124,13 +125,18 @@ cap.Calculator = function () {
          * @param {string} value
          */
         validateExpression: function (value) {
-            var re = /\s*(\d+)\s*([-+*\/])\s*(\d+)\s*/;
+            var re = /\s*(-?\d+|-?\d*\.\d+)\s*([-+*\/])\s*(\d*\.\d+|\d+)\s*/;
             this.errors = [];
-            if (value.match(re)) {
-                return true;
+            var matches = value.match(re);
+
+            if (!matches) {
+                this.errors.push(this.options.errors.match);
+                return false;
+            } else if (matches[3] == 0) {
+                this.errors.push(this.options.errors.zeroDivision);
+                return false
             }
-            this.errors.push(this.options.errors.re);
-            return false;
+            return true;
         },
 
         /**
@@ -164,7 +170,8 @@ cap.Calculator = function () {
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     alert('Произошла ошибка.\n\nОбратитесь в службу технической поддержки.\n\nтел. 555-555');
-                    console.log(jqXHR.status + ' (' + errorThrown + ')');
+                    console.log(jqXHR.status + ' (' + errorThrown + ')\n\n'
+                        + 'Try to enable debug mode in web/index.php file.');
                 });
         }
     };

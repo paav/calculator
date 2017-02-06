@@ -2,16 +2,20 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\InvalidCallException;
 use yii\base\Model;
 
 /**
- * ContactForm is the model behind the contact form.
+ *
  */
 class Calculator extends Model
 {
-
+    /**
+     * Calculates arithmetic expression.
+     * @param ArithmeticExpression $arithmeticExpression
+     * @throws InvalidCallException
+     * @return double
+     */
     public static function calculate(ArithmeticExpression $arithmeticExpression)
     {
         $operand1 = $arithmeticExpression->getOperand1();
@@ -29,10 +33,13 @@ class Calculator extends Model
                 $result = $operand1 * $operand2;
                 break;
             case "/":
+                if ($operand2 == 0) {
+                    throw new InvalidCallException('Division by zero.');
+                }
                 $result = $operand1 / $operand2;
                 break;
             default:
-                throw new InvalidCallException("Invalid operator");
+                throw new InvalidCallException('Invalid operator.');
         }
 
         return $result;

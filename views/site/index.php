@@ -33,6 +33,7 @@ $this->title = 'Calculator';
             <input id="expression"
                    class="calculator__expression form-control"
                    autocomplete="off"
+                   maxlength="30"
                    placeholder='Например: "2 + 3"'>
             <div id="error" class="calculator__error help-block help-block-error"></div>
         </div>
