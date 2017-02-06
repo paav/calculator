@@ -1,6 +1,6 @@
 # Overview
 
-Very simple calculator written with [Yii2 framework](https://www.google.com) as a programming challenge from [razlet.ru](http://razlet.ru).
+Very simple calculator written with [Yii2 framework](http://www.yiiframework.com/) as a programming challenge from [razlet.ru](http://razlet.ru).
 
 
 # Installation
